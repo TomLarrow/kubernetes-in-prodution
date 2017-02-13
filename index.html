@@ -35,7 +35,7 @@
 
 				<section>
 					<table>
-						<tr><td><img src="resources/images/OpenShift-LogoType.svg" alt="OpenShift" style="width:256px;height:256px;"></td><td vertical-align="center">&asymp;</td><td><img src="resources/images/k8.png" alt="Kubernetes" style="width:256px;height:256px;"></td></tr>
+						<tr><td><img src="resources/images/OpenShift-LogoType.svg" alt="OpenShift" align="middle" style="width:256px;height:256px;"></td><td vertical-align="center">&asymp;</td><td><img src="resources/images/k8.png" alt="Kubernetes" align="middle" style="width:256px;height:256px;"></td></tr>
 						<tr><td><center>oc</center></td><td>&asymp;</td><td><center>kube</center></td></tr>
 					</table>
 					<aside class="notes">
@@ -184,6 +184,22 @@
 				</section>
 
 				<section>
+					Each step loads in a docker image containing the dependencies for that step
+					<pre><code class="hljs" data-trim contenteditable>
+pipeline {
+  agent {label 'swarm'}
+
+  stage('Gulp'){
+    agent {
+      docker {
+        image "$REGISTRY/openshift/nodejs-olb:latest"
+        reuseNode true
+      }
+    }
+    steps {
+      sh "gulp olb"
+    }
+					</code></pre>
 					<aside class="notes">
 						<ul>
 							<li></li>
@@ -191,6 +207,50 @@
 						</ul>
 					</aside>
 				</section>
+
+				<section>
+					<h3>Run Unit Tests</h3>
+					<img src="resources/images/pipeline2.png" style="width:150%;height:150%;" >
+
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Build new docker container</h3>
+					<img src="resources/images/pipeline3.png" style="width:150%;height:150%;" >
+					<h3>deploy it to testing environment</h3>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					Deploying is as simlpe as pushing<br>a new image into the registry
+					<pre><code class="hljs" data-trim contenteditable>
+stage('Docker Build and Push'){
+    steps {
+        sh "docker build -t $DOCKERTAG_UT ."
+        sh "docker push $DOCKERTAG_UT"
+        VerifyDeployment("olb")
+    }
+}
+					</code></pre>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
 
 				<section>
 					<aside class="notes">
