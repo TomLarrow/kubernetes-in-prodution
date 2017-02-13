@@ -260,6 +260,188 @@ stage('Docker Build and Push'){
 					</aside>
 				</section>
 
+				<section data-background-image="resources/images/magic.gif" data-background-size="contain" data-background-transition="zoom">
+					<aside class="notes">
+						<ul>
+							<li>actually image triggers</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					Actually, it is image triggers in the deployment config
+					<pre><code class="hljs" data-trim contenteditable>
+triggers:
+  - type: ConfigChange
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+        - olb
+      from:
+        kind: ImageStreamTag
+        name: 'olb:ut'
+					</code></pre>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					This causes the image to roll when the image changes
+					<img src="resources/images/olb1.png" style="width:150%;height:150%;" >
+
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					The roll in action
+					<img src="resources/images/olb2.png" style="width:150%;height:150%;" >
+					Kubernetes waits for new pod to pass its readiness check before sending traffice to it and spinning down the old pod
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					Readiness probes are defined in<br>the depolyment config
+					<pre><code class="hljs" data-trim contenteditable>
+readinessProbe:
+  httpGet:
+    path: ibxolb/olb/index.html
+    port: 8080
+    scheme: HTTP
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 3
+					</code></pre>
+					<aside class="notes">
+						<ul>
+							<li>wait 10 seconds </li>
+							<li>Then check every 10 seconds to see if it is up</li>
+							<li>failureThreshold means declare the pod dead if after being up for at least 1 check, it is down for 3</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					New pod now serving requests
+					<img src="resources/images/olb3.png" style="width:150%;height:150%;" >
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Run Selenium Tests</h3>
+					<img src="resources/images/pipeline4.png" style="width:150%;height:150%;" >
+
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<ul>
+						<li>Over 5000 tests</li>
+						<li>Run from a docker container in K8S</li>
+						<li>Selenium Hub and 20 executors in K8S</li>
+						<li>Directly hitting the K8S service</li>
+						<li>Roughly 12 minutes to run</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					20 Pods of automated browsers
+					<img src="resources/images/seleniumGrid.png" style="width:150%;height:150%;" >
+					Easily spin up Firefox nodes or scale larger
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					Graph out the results
+					<img src="resources/images/allure.png" style="width:100%;height:100%;" >
+					Continue only if no failures
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Push to Dev Environment</h3>
+					<img src="resources/images/pipeline5.png" style="width:150%;height:150%;" >
+
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					Just shove the image at the next environment
+					<pre><code class="hljs" data-trim contenteditable>
+stage("push to DV"){
+    steps{
+        sh "docker pull $DOCKERTAG_UT"
+        sh "docker tag  $DOCKERTAG_UT $DOCKERTAG_DV"
+        sh "docker push $DOCKERTAG_DV"
+        VerifyDeployment("olb")
+    }
+}
+					</code></pre>
+					<aside class="notes">
+						<ul>
+							<li>pull the image in UT</li>
+							<li>Tag it with the proper name for DV</li>
+							<li>Shove the image at K8S wait for the maigc to happen</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
 
 				<section>
 					<aside class="notes">
@@ -279,11 +461,8 @@ stage('Docker Build and Push'){
 					</aside>
 				</section>
 
-
-
-			</div>
-		</div>
-
+					</div>
+				</div>
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
