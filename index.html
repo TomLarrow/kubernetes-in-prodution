@@ -148,11 +148,9 @@
 				</section>
 
 				<section>
-					<table>
-						<tr><td>3 Environments</td><td>Dev, NonProd, Prod</td></tr>
-						<tr><td>3 Application Nodes</td><td>Containers Run Here</td></tr>
-						<tr><td>3 Infrastructure Nodes</td><td>HA Router / Kubernetes API / Registry</td></tr>
-					</table>
+					<h3>Build Pipeline</h3>
+					<img src="resources/images/pipeline1.png" style="width:150%;height:150%;" >
+
 					<aside class="notes">
 						<ul>
 							<li></li>
@@ -162,6 +160,20 @@
 				</section>
 
 				<section>
+					<img src="resources/images/jenkins-slaves1.png">
+					<p>Whlie the Jenkins master is on its own server, almost all jobs build run inside docker containers in Kubernetes
+
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<img src="resources/images/jenkins-slaves2.png" style="width:150%;height:150%;">
+					<p>The nuber of build slaves can easily be increased/decreased
 
 					<aside class="notes">
 						<ul>
