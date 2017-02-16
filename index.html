@@ -36,7 +36,7 @@
 				<section>
 					<table>
 						<tr><td><img src="resources/images/OpenShift-LogoType.svg" alt="OpenShift" align="middle" style="width:256px;height:256px;"></td><td vertical-align="center">&asymp;</td><td><img src="resources/images/k8.png" alt="Kubernetes" align="middle" style="width:256px;height:256px;"></td></tr>
-						<tr><td><center>oc</center></td><td>&asymp;</td><td><center>kube</center></td></tr>
+						<tr><td><center>oc</center></td><td>&asymp;</td><td><center>kubectl</center></td></tr>
 					</table>
 					<aside class="notes">
 						<ul>
@@ -173,7 +173,7 @@
 
 				<section>
 					<img src="resources/images/jenkins-slaves2.png" style="width:150%;height:150%;">
-					<p>The nuber of build slaves can easily be increased/decreased
+					<p>The number of build slaves can easily be increased/decreased
 
 					<aside class="notes">
 						<ul>
@@ -444,6 +444,96 @@ stage("push to DV"){
 				</section>
 
 				<section>
+					<h2>Mobile Application</h2>
+					<ul>
+						<li>Mobile App is HTML5 using most of same codebase</li>
+						<li>Deploy to testing environment in Kubernetes</li>
+						<li>Selenium testing in phone sized browser window</li>
+						<li>In higher environment package application and test</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Configuration</h2>
+					<ul>
+						<li>OpenShift has configuration templates</li>
+						<li>This allows customization per environment</li>
+						<br>
+						<li>Several open source projects exist for templating Kubernetes</li>
+						<li>ktmpl <a href="https://github.com/InQuicker/ktmpl">https://github.com/InQuicker/ktmpl</a></li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Sidecars</h2>
+					<img src="resources/images/sidecars.png" style="width:100%;height:100%;" >
+					Multiple containers can make up a pod
+
+					<aside class="notes">
+						<ul>
+							<li>CTG and the Log Forwarder are additional docker containers inside the pod</li>
+							<li>they share "localhost" and filestores</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background-image="resources/images/lucy.gif" data-background-size="contain" data-background-transition="zoom">
+					<aside class="notes">
+						<ul>
+							<li>monitoring</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					(Big / Epic win gif goes here)
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Delivery Speed</h2>
+					<ul>
+						<li>Dramatically Reduced delivery time of major application</li>
+						<br>
+						<li>Rolling Deployments with no customer impact</li>
+						<br>
+						<li>Performed 10 deployments during first 4 days of go live, while under record load</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Testing and Quality</h2>
+					<ul>
+						<li>Over 21 million tests run inside our Selenium grid</li>
+						<br>
+						<li>Reduced 2 weeks of manual testing to 12 minutes of automated tests</li>
+						<br>
+						<li>Many automated tests could cover both web and mobile apps</li>
+					</ul>
 					<aside class="notes">
 						<ul>
 							<li></li>
