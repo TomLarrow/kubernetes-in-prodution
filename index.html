@@ -226,8 +226,8 @@ pipeline {
 					<h3>deploy it to testing environment</h3>
 					<aside class="notes">
 						<ul>
-							<li></li>
-							<li></li>
+							<li>Docker builds straight from a dockerfile</li>
+							<li>Some projects build from Maven and Fabric8</li>
 						</ul>
 					</aside>
 				</section>
@@ -364,10 +364,11 @@ readinessProbe:
 				<section>
 					<ul>
 						<li>Over 5000 tests</li>
-						<li>Run from a docker container in K8S</li>
-						<li>Selenium Hub and 20 executors in K8S</li>
-						<li>Directly hitting the K8S service</li>
+						<li>Run from a docker container</li>
+						<li>Selenium Hub and 20 executors in</li>
+						<li>Directly hitting the service</li>
 						<li>Roughly 12 minutes to run</li>
+						<li>All in Kubernetes</li>
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -383,7 +384,7 @@ readinessProbe:
 					Easily spin up Firefox nodes or scale larger
 					<aside class="notes">
 						<ul>
-							<li></li>
+							<li>Saucelabs story</li>
 							<li></li>
 						</ul>
 					</aside>
@@ -444,6 +445,22 @@ stage("push to DV"){
 				</section>
 
 				<section>
+					<h3>Move Pods to higher environments </h3>
+					<ul>
+						<li>Move all containers together</li>
+						<li>If image hasn't changed, pods don't roll</li>
+						<li>Done today with separate jobs in Jenkins</li>
+						<li>Moving to a more formal release/deployment application</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>XebxaLabs XL Deploy and XL Release</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
 					<h2>Mobile Application</h2>
 					<ul>
 						<li>Mobile App is HTML5 using most of same codebase</li>
@@ -489,7 +506,7 @@ stage("push to DV"){
 					</aside>
 				</section>
 
-				<section data-background-image="resources/images/lucy.gif" data-background-size="contain" data-background-transition="zoom">
+				<section data-background-image="resources/images/monitoring.gif" data-background-size="contain" data-background-transition="zoom">
 					<aside class="notes">
 						<ul>
 							<li>monitoring</li>
@@ -499,7 +516,9 @@ stage("push to DV"){
 				</section>
 
 				<section>
-					(Big / Epic win gif goes here)
+					<h3>Grafana</h3>
+					<img src="resources/images/grafana.png" style="width:150%;height:150%;" >
+
 					<aside class="notes">
 						<ul>
 							<li></li>
@@ -509,13 +528,73 @@ stage("push to DV"){
 				</section>
 
 				<section>
+					<h3>Hygieia</h3>
+					<img src="resources/images/hygieia1.png" style="width:50%;height:50%;" >
+
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Hygieia</h3>
+					<img src="resources/images/hygieia2.png" style="width:100%;height:100%;" >
+					Developers can click on an environment in their Hygieia dashboard and see exactly the code revision that is in each enironment.
+
+					<aside class="notes">
+						<ul>
+							<li>Baked into the container as docker metadata</li>
+							<li>can be viewed by docker inspect</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Hystrix</h3>
+					<img src="resources/images/hystrix1.png" style="width:100%;height:100%;" >
+
+					<aside class="notes">
+						<ul>
+							<li>Netflix's Circuit Breaker Pattern</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Hystrix in Grafana</h3>
+					<img src="resources/images/grafana2.png" style="width:100%;height:100%;" >
+					Create Exectutive Dashboard from Hystrix data
+					(10:30pm)
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background-image="resources/images/thumbsUp.gif" data-background-size="contain" data-background-transition="zoom">
+					<aside class="notes">
+						<ul>
+							<li>Things we did right</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
 					<h2>Delivery Speed</h2>
 					<ul>
-						<li>Dramatically Reduced delivery time of major application</li>
+						<li class="fragment">Dramatically Reduced delivery time of major application</li>
 						<br>
-						<li>Rolling Deployments with no customer impact</li>
+						<li class="fragment">Performed 10 deployments during first 4 days of go live, while under record load</li>
 						<br>
-						<li>Performed 10 deployments during first 4 days of go live, while under record load</li>
+						<li class="fragment">Rolling Deployments with no customer impact</li>
+
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -528,11 +607,11 @@ stage("push to DV"){
 				<section>
 					<h2>Testing and Quality</h2>
 					<ul>
-						<li>Over 21 million tests run inside our Selenium grid</li>
+						<li class="fragment">Over 21 million tests run inside our Selenium grid</li>
 						<br>
-						<li>Reduced 2 weeks of manual testing to 12 minutes of automated tests</li>
+						<li class="fragment">Reduced 2 weeks of manual testing to 12 minutes of automated tests</li>
 						<br>
-						<li>Many automated tests could cover both web and mobile apps</li>
+						<li class="fragment">Many automated tests could cover both web and mobile apps</li>
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -543,6 +622,69 @@ stage("push to DV"){
 				</section>
 
 				<section>
+					<h2>Improve Incrementially</h2>
+					<img src="resources/images/snake.png" style="width:100%;height:100%;" >
+					Not only your code, but also your environment
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>What would we do differently?</h2>
+					<ul>
+						<li class="fragment">A least 4 application nodes</li>
+						<li class="fragment">Maybe not Jenkins</li>
+						<li class="fragment">Better evangilization and communication about capibilities</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background-image="resources/images/startSooner.gif" data-background-size="contain" data-background-transition="zoom">
+					<aside class="notes">
+						<ul>
+							<li>Start Sooner</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>What's Next?</h1>
+					<aside class="notes">
+						<ul>
+							<li></li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background-image="resources/images/allTheThings.jpg" data-background-size="contain" data-background-transition="zoom">
+					<aside class="notes">
+						<ul>
+							<li>Start Sooner</li>
+							<li></li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h3>What's Next?</h3>
+					<ul>
+						<li>Expand The Cluster</li>
+						<li class="fragment">Vendor Containers</li>
+						<li class="fragment">Databases</li>
+						<li class="fragment">Grid Improvements</li>
+						<li class="fragment">New Deployment Tool</li>
+					</ul>
 					<aside class="notes">
 						<ul>
 							<li></li>
